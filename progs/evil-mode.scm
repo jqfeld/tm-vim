@@ -123,7 +123,8 @@
   ("y" (begin (clipboard-copy "primary")(exit-visual)))
   )
 
-
+; HACK: I would like to put the menu entry into the Tools menu, but for some 
+; reson only insert-menu works...
 (menu-bind insert-menu
   (former)
   ---
