@@ -1,17 +1,17 @@
 
-(texmacs-module (evil-mode))
+(texmacs-module (vim-mode))
 
-(define-public evil-active #t)
+(define-public vim-active #t)
 (define-public normal-active #t)
 (define-public visual-active #f)
 
-(tm-define (evil-mode?) evil-active)
+(tm-define (vim-mode?) vim-active)
 (tm-define (normal-mode?) normal-active)
 (tm-define (visual-mode?) visual-active)
 
-(tm-define (toggle-evil) 
-           (:check-mark "v" evil-mode?)
-           (set! evil-active (not evil-active))
+(tm-define (toggle-vim) 
+           (:check-mark "v" vim-mode?)
+           (set! vim-active (not vim-active))
            )
 
 (tm-define (toggle-normal) 
@@ -39,13 +39,13 @@
            )
 
 (texmacs-modes
- (in-evil% (evil-mode?)) 
- (in-normal% (normal-mode?) in-evil%)
+ (in-vim% (vim-mode?)) 
+ (in-normal% (normal-mode?) in-vim%)
  (in-visual% (visual-mode?) in-normal%)
  ) 
 
 
-(tm-define (evil-move movement)
+(tm-define (vim-move movement)
            (if (visual-mode?) 
              (kbd-select movement)
              (movement)
@@ -88,7 +88,7 @@
 
 
 (kbd-map
-  (:mode in-evil?)
+  (:mode in-vim?)
   ("C-[" (enter-normal))
   ;; for easy movement without switching to normal mode
   ("A-j" (kbd-down))
@@ -99,12 +99,12 @@
 
 (kbd-map
   (:mode in-normal?)
-  ("h" (evil-move kbd-left))
-  ("j" (evil-move kbd-down))
-  ("k" (evil-move kbd-up))
-  ("l" (evil-move kbd-right))
-  ("$" (evil-move kbd-end-line))
-  ("0" (evil-move kbd-start-line))
+  ("h" (vim-move kbd-left))
+  ("j" (vim-move kbd-down))
+  ("k" (vim-move kbd-up))
+  ("l" (vim-move kbd-right))
+  ("$" (vim-move kbd-end-line))
+  ("0" (vim-move kbd-start-line))
   (":" (enter-command))
   ("v" (enter-visual))
 
@@ -128,7 +128,7 @@
 (menu-bind insert-menu
   (former)
   ---
-  ("Evil" (toggle-evil))
+  ("Vim mode" (toggle-vim))
   )
 
 

@@ -6,8 +6,8 @@ much WIP.
 ## Install
 Install via
 ```bash
-git clone https://github.com/jqfeld/tm-evil.git ~/.TeXmacs/plugins/
+git clone https://github.com/jqfeld/tm-vim.git ~/.TeXmacs/plugins/
 ```
 Vim keybindings are activated automatically. They can be deactivated with the 
-menu entry "Evil" in the "Insert" menu.
+menu entry "Vim mode" in the "Insert" menu.
 
