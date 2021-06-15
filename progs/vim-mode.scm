@@ -86,7 +86,6 @@
 )
 
 
-
 (kbd-map
   (:mode in-vim?)
   ("C-[" (enter-normal))
@@ -105,24 +104,84 @@
   ("l" (vim-move kbd-right))
   ("$" (vim-move kbd-end-line))
   ("0" (vim-move kbd-start-line))
-  (":" (enter-command))
-  ("v" (enter-visual))
+  ("g" (noop)) ; HACK: avoid shoing "g" when using "gg"
+  ("g g" (vim-move go-start))
+  ("G" (vim-move go-end))
+  ("w" (vim-move go-to-next-word))
+  ("b" (vim-move go-to-previous-word))
 
   ("i" (exit-normal))
-  ("I" (begin (kbd-start-line)(exit-normal)))
-  ("o" (begin (kbd-end-line)(kbd-return)(exit-normal)))
-  ("O" (begin (kbd-start-line)(kbd-return)(exit-normal)(kbd-left)(kbd-left))) ; TODO: this does not work yet...
+  ("I" (begin 
+         (kbd-start-line)
+         (exit-normal)
+         ))
+  ("o" (begin 
+         (kbd-end-line)
+         (kbd-return)
+         (exit-normal)
+         ))
+  ("O" (begin 
+         (kbd-start-line)
+         (kbd-return)
+         (exit-normal)
+         (kbd-left)
+         (kbd-left)
+         )) ; TODO: this does not work yet...
+  ("a" (begin 
+         (kbd-right) 
+         (exit-normal)
+         ))
+  ("A" (begin 
+         (kbd-end-line) 
+         (exit-normal)
+         ))
 
-  ("p" (clipboard-paste "primary"))
+  ("x" (begin
+         (kbd-select kbd-right)
+         (kbd-cut)
+         ))
+  ("d" (noop)) ; TODO: make this word with movements...
+  ("d d" (begin 
+           (kbd-start-line) 
+           (kbd-select kbd-end-line) 
+           (kbd-cut)
+           (kbd-backspace)
+         ))
+  ("D" (begin
+         (kbd-select kbd-end-line)
+         (kbd-cut)
+         ))
+
+  ("p" (kbd-paste))
+  ("P" (begin
+         (kbd-start-line)
+         (kbd-return)
+         (kbd-left)
+         (kbd-paste)
+         ))
+
+  ("u" (undo 0))
+  ("C-r" (redo 0))
+
+  (":" (enter-command))
+  ("/" (interactive-search))
+  ("v" (enter-visual))
 
   )
 
 (kbd-map
   (:mode in-visual?)
   ("C-[" (exit-visual))
-  ("y" (begin (clipboard-copy "primary")(exit-visual)))
+  ("y" (begin 
+         (kbd-copy) 
+         (exit-visual)
+         ))
+  ("d" (begin 
+         (kbd-cut) 
+         (exit-visual)
+         ))
   )
-
+; T
 ; HACK: I would like to put the menu entry into the Tools menu, but for some 
 ; reson only insert-menu works...
 (menu-bind insert-menu
