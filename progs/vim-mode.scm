@@ -1,7 +1,7 @@
 
 (texmacs-module (vim-mode))
 
-(define-public vim-active #t)
+(define-public vim-active #f)
 (define-public normal-active #t)
 (define-public visual-active #f)
 
